@@ -129,6 +129,15 @@ class StateModel(models.Model):
         """
         return self.get_state_info().possible_transitions()
 
+    @property
+    def valid_transitions(self):
+        """
+        Gets a list of validated transitions that can be made from the current state.
+        
+        :returns: list of validated transitions taht can be made from the current state.
+        """
+        return [transition for transition in self.possible_transitions if self.can_make_transition(transition.get_name())]
+
     @classmethod
     def get_state_model_name(self):
         """
