@@ -14,7 +14,10 @@ else:
 from django.db import models
 from django.db.models.base import ModelBase
 from django.utils.translation import ugettext_lazy as _
-from django.utils import simplejson as json
+try:
+    from django.utils import simplejson as json
+except ImportError:
+    import json
 
 from django_states import conf
 from django_states.fields import StateField
