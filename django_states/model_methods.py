@@ -2,7 +2,6 @@
 """Model Methods"""
 
 import json
-from django.core.serializers.json import DjangoJSONEncoder
 
 from django_states.exceptions import PermissionDenied, TransitionCannotStart, \
     TransitionException, TransitionNotValidated, UnknownTransition
@@ -101,6 +100,11 @@ def get_STATE_info(self, field='state', machine=None):
             """
             return machine.get_state_groups(getattr(self, field))
 
+        @property
+        def initial(si_self):
+            return self.state == machine.initial_state
+
+        @property
         def possible_transitions(si_self):
             """
             Return list of transitions which can be made from the current
@@ -208,10 +212,7 @@ def get_STATE_info(self, field='state', machine=None):
                 if _state_log_model:
                     transition_log.make_transition('fail')
 
-                # Print original traceback for debugging
-                import traceback
-                traceback.print_exc()
-                raise e
+                raise
             else:
                 if _state_log_model:
                     transition_log.make_transition('complete')
