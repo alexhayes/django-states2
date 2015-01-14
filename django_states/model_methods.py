@@ -7,6 +7,7 @@ from django_states.exceptions import PermissionDenied, TransitionCannotStart, \
     TransitionException, TransitionNotValidated, UnknownTransition
 from django_states.machine import StateMachineMeta
 from django_states.signals import before_state_execute, after_state_execute
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 def get_STATE_transitions(self, field='state'):
